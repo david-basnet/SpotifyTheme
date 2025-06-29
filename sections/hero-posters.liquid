@@ -1,0 +1,193 @@
+<div class="hero-posters">
+  {% assign default_headings = "INTER MIAMI CF|NB 550|ORIGINALS" | split: "|" %}
+  {% assign default_subheadings = "Dream big and live blue in the iconic Inter Miami CF 2025 Third Jersey.|Classic style, modern comfort. Step up your sneaker game.|Timeless icons for every generation." | split: "|" %}
+  {% assign default_button_texts = "SHOP NOW|SHOP NOW|SHOP NOW" | split: "|" %}
+  {% assign default_alts = "Poster 1|Poster 2|Poster 3" | split: "|" %}
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+      <div class="hero-poster" id="poster-{{ forloop.index }}">
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.heading | default: default_alts[forloop.index0] | escape }}">
+        {% else %}
+          {% if forloop.index == 1 %}
+            <img src="{{ 'jordan.jpg' | asset_url }}" alt="Poster 1">
+          {% elsif forloop.index == 2 %}
+            <img src="{{ 'nb550.webp' | asset_url }}" alt="Poster 2">
+          {% elsif forloop.index == 3 %}
+            <img src="{{ 'adidas-samba-sneakers-amy4.jpg' | asset_url }}" alt="Poster 3">
+          {% endif %}
+        {% endif %}
+        <div class="hero-poster-content">
+          <h2>{{ block.settings.heading | default: default_headings[forloop.index0] }}</h2>
+          <p>{{ block.settings.subheading | default: default_subheadings[forloop.index0] }}</p>
+          <a href="{{ block.settings.button_link | default: '#' }}" class="hero-poster-btn">{{ block.settings.button_text | default: default_button_texts[forloop.index0] }}</a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="hero-poster" id="poster-1">
+      <img src="{{ 'jordan.jpg' | asset_url }}" alt="Poster 1">
+      <div class="hero-poster-content">
+        <h2>JORDAN</h2>
+        <p>Dream big and leave red bright steps with this jordan.</p>
+        <a href="#" class="hero-poster-btn">SHOP NOW</a>
+      </div>
+    </div>
+    <div class="hero-poster" id="poster-2">
+      <img src="{{ 'nb550.webp' | asset_url }}" alt="Poster 2">
+      <div class="hero-poster-content">
+        <h2>NB 550</h2>
+        <p>Classic style, modern comfort. Step up your sneaker game.</p>
+        <a href="#" class="hero-poster-btn">SHOP NOW</a>
+      </div>
+    </div>
+    <div class="hero-poster" id="poster-3">
+      <img src="{{ 'adidas-samba-sneakers-amy4.jpg' | asset_url }}" alt="Poster 3">
+      <div class="hero-poster-content">
+        <h2>SAMBA</h2>
+        <p>Perfection is samba.</p>
+        <a href="#" class="hero-poster-btn">SHOP NOW</a>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+.hero-posters {
+  display: flex;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 32px 0;
+}
+.hero-poster {
+  flex: 1 1 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  min-width: 0;
+  background: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.hero-poster img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+.hero-poster-content {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  padding: 24px;
+}
+.hero-poster-content h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.hero-poster-content p {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+}
+.hero-poster-btn {
+  display: inline-block;
+  background: #fff;
+  color: #111;
+  font-weight: bold;
+  padding: 10px 24px;
+  border-radius: 2px;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.hero-poster-btn:hover {
+  background: #111;
+  color: #fff;
+}
+@media (max-width: 900px) {
+  .hero-posters {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-poster img {
+    height: 220px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Hero Posters",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "poster",
+      "name": "Poster",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Posters",
+      "blocks": [
+        {
+          "type": "poster",
+          "settings": {
+            "heading": "INTER MIAMI CF",
+            "subheading": "Dream big and live blue in the iconic Inter Miami CF 2025 Third Jersey.",
+            "button_text": "SHOP NOW"
+          }
+        },
+        {
+          "type": "poster",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_text": ""
+          }
+        },
+        {
+          "type": "poster",
+          "settings": {
+            "heading": "ORIGINALS",
+            "subheading": "",
+            "button_text": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 
