@@ -9,15 +9,17 @@
  */
 {
   "sections": {
-    "featured_shoes": {
-      "type": "top-picks",
+    "featured_men_shoes": {
+      "type": "featured-men-shoes",
       "settings": {
-        "heading": "FEATURED SHOES"
+        "heading": "FEATURED MEN'S SHOES"
       }
     },
-    "all_shoes": {
-      "type": "all-shoes",
-      "settings": {}
+    "men_shoes_gallery": {
+      "type": "men-shoes-gallery",
+      "settings": {
+        "heading": "MEN'S SHOES GALLERY"
+      }
     },
     "footer": {
       "type": "footer",
@@ -25,8 +27,8 @@
     }
   },
   "order": [
-    "featured_shoes",
-    "all_shoes",
+    "featured_men_shoes",
+    "men_shoes_gallery",
     "footer"
   ]
-}
+} 

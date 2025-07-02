@@ -1,164 +1,75 @@
-<div class="top-picks-section">
-  <h2 class="top-picks-heading">{{ section.settings.heading | default: 'TOP PICKS FOR YOU' }}</h2>
-  <div class="top-picks-groups">
-    {% assign groups = 'men,women,kids' | split: ',' %}
-    {% for group in groups %}
-      {% assign group_title_key = group | append: '_title' %}
-      <div class="top-picks-group" id="top-picks-{{ group }}">
-        <h3 class="top-picks-group-title">{{ section.settings[group_title_key] | default: group | capitalize }}</h3>
-        <div class="top-picks-carousel" data-group="{{ group }}">
-          <button class="carousel-arrow left" onclick="slideTopPicks('{{ group }}', -1)">&#8592;</button>
-          <div class="top-picks-items-wrapper">
-            <div class="top-picks-items" id="top-picks-items-{{ group }}">
-              {% for i in (1..6) %}
-                {% assign img_setting = group | append: '_img' | append: i %}
-                {% assign name_setting = group | append: '_name' | append: i %}
-                {% assign price_setting = group | append: '_price' | append: i %}
-                <div class="top-pick-item">
-                  {% if section.settings[img_setting] != blank %}
-                    <img src="{{ section.settings[img_setting] | image_url: width: 400 }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">
-                  {% else %}
-                    {% case i %}
-                      {% when 1 %}<img src="{{ 'menshoeGEL1130.jpg' | asset_url }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">{% when 2 %}<img src="{{ 'menshoeVEJA.webp' | asset_url }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">{% when 3 %}<img src="{{ 'menshoeZOOMVOMERO.webp' | asset_url }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">{% when 4 %}<img src="{{ 'menshoeNB9060.webp' | asset_url }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">{% when 5 %}<img src="{{ 'menshoeSAMBA.avif' | asset_url }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">{% when 6 %}<img src="{{ 'menshoeOZWEEGO.avif' | asset_url }}" alt="{{ section.settings[name_setting] | default: 'Product' }}">{% endcase %}
-                  {% endif %}
-                  <div class="top-pick-info">
-                    <div class="top-pick-price">${{ section.settings[price_setting] | default: '100' }}</div>
-                    <div class="top-pick-name">{{ section.settings[name_setting] | default: 'Sneaker' }}</div>
-                    <a href="#" class="top-pick-btn">SHOP NOW</a>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
+<div class="top-picks">
+  <h2>TOP PICKS FOR YOU</h2>
+  <div class="top-picks-row">
+    <div class="top-picks-label">Men</div>
+    <div class="top-picks-shoes">
+      {% assign men_section = sections['featured-men-shoes'] %}
+      {% if men_section %}
+        {% for block in men_section.blocks %}
+          <div class="top-pick-card">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="top-pick-img">
+            {% endif %}
+            <div class="top-pick-title">${{ block.settings.title }}</div>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="top-pick-btn">SHOP NOW</a>
+            {% endif %}
           </div>
-          <button class="carousel-arrow right" onclick="slideTopPicks('{{ group }}', 1)">&#8594;</button>
-        </div>
-      </div>
-    {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="top-picks-row">
+    <div class="top-picks-label">Women</div>
+    <div class="top-picks-shoes">
+      {% assign women_section = sections['featured-women-shoes'] %}
+      {% if women_section %}
+        {% for block in women_section.blocks %}
+          <div class="top-pick-card">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="top-pick-img">
+            {% endif %}
+            <div class="top-pick-title">${{ block.settings.title }}</div>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="top-pick-btn">SHOP NOW</a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="top-picks-row">
+    <div class="top-picks-label">Kids</div>
+    <div class="top-picks-shoes">
+      {% assign kid_section = sections['featured-kid-shoes'] %}
+      {% if kid_section %}
+        {% for block in kid_section.blocks %}
+          <div class="top-pick-card">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="top-pick-img">
+            {% endif %}
+            <div class="top-pick-title">${{ block.settings.title }}</div>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="top-pick-btn">SHOP NOW</a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
   </div>
 </div>
 
 <style>
-.top-picks-section {
-  padding: 48px 0 32px 0;
-  background: #fff;
-  overflow-x: hidden;
-  max-width: 100%;
-}
-.top-picks-heading {
-  font-size: 2.2rem;
-  font-weight: bold;
-  letter-spacing: 2px;
-  margin-bottom: 32px;
-  text-align: left;
-  padding-left: 32px;
-}
-.top-picks-groups {
-  max-width: 1600px;
-  margin: 0 auto;
-}
-.top-picks-group {
-  margin-bottom: 48px;
-}
-.top-picks-group-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 16px;
-  text-align: left;
-  padding-left: 32px;
-}
-.top-picks-carousel {
-  display: flex;
-  align-items: center;
-}
-.carousel-arrow {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #111;
-  padding: 0 16px;
-}
-.top-picks-items-wrapper {
-  overflow: hidden;
-  width: 100%;
-}
-.top-picks-items {
-  display: flex;
-  transition: transform 0.3s;
-}
-.top-pick-item {
-  min-width: 320px;
-  max-width: 320px;
-  margin: 0 8px;
-  background: #f7f7f7;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.top-pick-item img {
-  width: 100%;
-  height: 220px;
-  object-fit: contain;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.top-pick-info {
-  padding: 16px;
-  text-align: left;
-  width: 100%;
-}
-.top-pick-price {
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-bottom: 4px;
-}
-.top-pick-name {
-  font-size: 1rem;
-  margin-bottom: 8px;
-}
-.top-pick-btn {
-  display: inline-block;
-  background: #111;
-  color: #fff;
-  font-weight: bold;
-  padding: 8px 20px;
-  border-radius: 2px;
-  text-decoration: none;
-  margin-top: 8px;
-  transition: background 0.2s, color 0.2s;
-}
-.top-pick-btn:hover {
-  background: #0071e3;
-  color: #fff;
-}
-@media (max-width: 1200px) {
-  .top-pick-item {
-    min-width: 220px;
-    max-width: 220px;
-  }
-  .top-pick-item img {
-    height: 160px;
-  }
-}
+.top-picks { padding: 32px 0; }
+.top-picks-row { display: flex; align-items: flex-start; margin-bottom: 32px; }
+.top-picks-label { width: 80px; font-weight: bold; margin-right: 16px; }
+.top-picks-shoes { display: flex; gap: 24px; }
+.top-pick-card { width: 160px; background: #f7f7f7; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.top-pick-img { width: 100%; height: 100px; object-fit: contain; background: #fff; }
+.top-pick-title { font-size: 1rem; margin: 8px 0; font-weight: bold; text-align: center; }
+.top-pick-btn { color: #fff; background: #111; border: none; border-radius: 4px; padding: 6px 12px; text-decoration: none; font-size: 0.95rem; margin-bottom: 8px; display: inline-block; }
+.top-pick-btn:hover { background: #0071e3; }
 </style>
-
-<script>
-function slideTopPicks(group, dir) {
-  var items = document.getElementById('top-picks-items-' + group);
-  var current = parseInt(items.getAttribute('data-slide')) || 0;
-  var max = 2; // 6 items, 4 visible, so 2 slides
-  var next = current + dir;
-  if (next < 0) next = 0;
-  if (next > max) next = max;
-  items.style.transform = 'translateX(' + (-next * 100 / 4) + '%)';
-  items.setAttribute('data-slide', next);
-}
-</script>
 
 {% schema %}
 {

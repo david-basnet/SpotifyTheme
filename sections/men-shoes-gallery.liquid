@@ -1,17 +1,22 @@
 <div class="men-shoes-gallery">
   <h2>{{ section.settings.heading }}</h2>
   <div class="men-shoes-grid">
-    {% for block in section.blocks %}
-      <div class="men-shoe-card">
-        {% if block.settings.image != blank %}
-          <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="men-shoe-img">
-        {% endif %}
-        <div class="men-shoe-info">
-          <div class="men-shoe-title">{{ block.settings.title }}</div>
-          <div class="men-shoe-desc">{{ block.settings.desc }}</div>
+    {% assign featured_section = sections['featured-men-shoes'] %}
+    {% if featured_section and featured_section.blocks.size > 0 %}
+      {% for block in featured_section.blocks limit:15 %}
+        <div class="men-shoe-card">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="men-shoe-img">
+          {% endif %}
+          <div class="men-shoe-info">
+            <div class="men-shoe-title">{{ block.settings.title }}</div>
+            <div class="men-shoe-desc">{{ block.settings.desc }}</div>
+          </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    {% else %}
+      <p>No featured men's shoes found. Please add them in the Featured Men Shoes section.</p>
+    {% endif %}
   </div>
 </div>
 
@@ -76,30 +81,6 @@
       "default": "Men's Shoes Gallery"
     }
   ],
-  "blocks": [
-    {
-      "type": "shoe",
-      "name": "Shoe",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Shoe Image"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Shoe Title"
-        },
-        {
-          "type": "text",
-          "id": "desc",
-          "label": "Description"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 15,
   "presets": [
     {
       "name": "Men Shoes Gallery"
