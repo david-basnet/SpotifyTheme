@@ -1,22 +1,49 @@
 <div class="top-picks">
-  <h2>TOP PICKS FOR YOU</h2>
+  <h2 class="top-picks-heading">TOP PICKS FOR YOU</h2>
   <div class="top-picks-row">
     <div class="top-picks-label">Men</div>
-    <div class="top-picks-shoes">
-      {% assign men_section = sections['featured-men-shoes'] %}
-      {% if men_section %}
-        {% for block in men_section.blocks %}
-          <div class="top-pick-card">
-            {% if block.settings.image != blank %}
-              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="top-pick-img">
-            {% endif %}
-            <div class="top-pick-title">${{ block.settings.title }}</div>
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}" class="top-pick-btn">SHOP NOW</a>
-            {% endif %}
-          </div>
-        {% endfor %}
-      {% endif %}
+    <div class="top-picks-shoes-wrapper">
+      <div class="top-picks-shoes top-picks-slider" id="men-slider">
+        {% assign men_section = sections['featured-men-shoes'] %}
+        {% assign default_titles = "Shoe 1,Shoe 2,Shoe 3,Shoe 4,Shoe 5,Shoe 6" | split: "," %}
+        {% assign default_prices = "100,120,110,130,140,150" | split: "," %}
+        {% assign default_images = "menshoeGEL1130.jpg,menshoeNB9060.webp,menshoeOZWEEGO.avif,menshoeSAMBA.avif,menshoeVEJA.webp,menshoeZOOMVOMERO.webp" | split: "," %}
+        {% if men_section and men_section.blocks.size > 0 %}
+          {% for i in (0..5) %}
+            {% assign block = men_section.blocks[i] %}
+            <div class="top-pick-card big">
+              {% if block %}
+                {% if block.settings.image != blank %}
+                  <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="top-pick-img">
+                {% else %}
+                  <img src="{{ default_images[i] | asset_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="top-pick-img">
+                {% endif %}
+                <div class="top-pick-title">{{ block.settings.title | default: default_titles[i] }}</div>
+                <div class="top-pick-price">${{ block.settings.price | default: default_prices[i] }}</div>
+                {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}" class="top-pick-btn">Shop Now</a>
+                {% endif %}
+              {% else %}
+                <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="top-pick-img">
+                <div class="top-pick-title">{{ default_titles[i] }}</div>
+                <div class="top-pick-price">${{ default_prices[i] }}</div>
+                <a href="#" class="top-pick-btn">Shop Now</a>
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% for i in (0..5) %}
+            <div class="top-pick-card big">
+              <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="top-pick-img">
+              <div class="top-pick-title">{{ default_titles[i] }}</div>
+              <div class="top-pick-price">${{ default_prices[i] }}</div>
+              <a href="#" class="top-pick-btn">Shop Now</a>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <button class="slider-arrow left" onclick="slideTopPicks('men-slider', -1)">&#8592;</button>
+      <button class="slider-arrow right" onclick="slideTopPicks('men-slider', 1)">&#8594;</button>
     </div>
   </div>
   <div class="top-picks-row">
@@ -61,15 +88,35 @@
 
 <style>
 .top-picks { padding: 32px 0; }
-.top-picks-row { display: flex; align-items: flex-start; margin-bottom: 32px; }
-.top-picks-label { width: 80px; font-weight: bold; margin-right: 16px; }
-.top-picks-shoes { display: flex; gap: 24px; }
-.top-pick-card { width: 160px; background: #f7f7f7; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-.top-pick-img { width: 100%; height: 100px; object-fit: contain; background: #fff; }
-.top-pick-title { font-size: 1rem; margin: 8px 0; font-weight: bold; text-align: center; }
-.top-pick-btn { color: #fff; background: #111; border: none; border-radius: 4px; padding: 6px 12px; text-decoration: none; font-size: 0.95rem; margin-bottom: 8px; display: inline-block; }
-.top-pick-btn:hover { background: #0071e3; }
+.top-picks-heading { text-align: center; margin-bottom: 32px; font-size: 2rem; font-weight: bold; }
+.top-picks-row { display: flex; align-items: flex-start; margin-bottom: 32px; position: relative; }
+.top-picks-label { width: 120px; font-weight: bold; margin-right: 0; display: flex; align-items: flex-start; justify-content: flex-start; font-size: 1.2rem; margin-left: 40px; }
+.top-picks-shoes-wrapper { position: relative; width: 1120px; overflow: hidden; display: flex; align-items: center; }
+.top-picks-shoes { display: flex; gap: 40px; transition: transform 0.3s; min-width: 1640px; }
+.top-pick-card.big { width: 250px; min-width: 250px; background: #f7f7f7; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.top-pick-img { width: 100%; height: 180px; object-fit: contain; background: #fff; }
+.top-pick-title, .top-pick-price { text-align: center; width: 100%; margin: 0 auto; }
+.top-pick-title { font-size: 1.1rem; margin: 12px 0 4px 0; font-weight: bold; }
+.top-pick-price { font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
+.top-pick-btn { color: #fff; background: #111; border: none; border-radius: 4px; padding: 8px 16px; text-decoration: none; font-size: 1rem; margin-bottom: 12px; display: inline-block; text-align: center; transition: background 0.2s, color 0.2s; }
+.top-pick-btn:hover { background: #0071e3; color: #fff; }
+.slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: #fff; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; font-size: 1.5rem; cursor: pointer; z-index: 2; }
+.slider-arrow.left { left: 0; }
+.slider-arrow.right { right: 0; }
 </style>
+<script>
+function slideTopPicks(id, dir) {
+  var slider = document.getElementById(id);
+  if (!slider) return;
+  var current = parseInt(slider.getAttribute('data-slide')) || 0;
+  var max = 1; // 6 items, 4 visible, so 2 slides
+  var next = current + dir;
+  if (next < 0) next = 0;
+  if (next > max) next = max;
+  slider.style.transform = 'translateX(' + (-next * 580) + 'px)';
+  slider.setAttribute('data-slide', next);
+}
+</script>
 
 {% schema %}
 {
