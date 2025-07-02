@@ -13,13 +13,28 @@
         "type": "hero-posters",
         "settings": {}
       },
-      "main": {
-        "type": "hello-world",
+      "top_picks": {
+        "type": "top-picks",
+        "settings": {}
+      },
+      "sneaker_description": {
+        "type": "sneaker-description",
+        "settings": {}
+      },
+      "ad_banner": {
+        "type": "ad-banner",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
         "settings": {}
       }
     },
     "order": [
       "hero_posters",
-      "main"
+      "top_picks",
+      "sneaker_description",
+      "ad_banner",
+      "footer"
     ]
   }
