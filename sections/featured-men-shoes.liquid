@@ -9,17 +9,11 @@
       {% for i in (0..5) %}
         {% assign block = section.blocks[i] %}
         <div class="featured-shoe big">
-          {% if block %}
-            {% if block.settings.image != blank %}
-              <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="featured-shoe-img">
-            {% else %}
-              <img src="{{ default_images[i] | asset_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="featured-shoe-img">
-            {% endif %}
+          {% if block or request.design_mode %}
+            <img src="{{ block.settings.image | image_url | default: default_images[i] | asset_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="featured-shoe-img">
             <div class="featured-shoe-title center">{{ block.settings.title | default: default_titles[i] }}</div>
             <div class="featured-shoe-price center">${{ block.settings.price | default: default_prices[i] }}</div>
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}" class="featured-shoe-link">Shop Now</a>
-            {% endif %}
+            <a href="{{ block.settings.link | default: '#' }}" class="featured-shoe-link">Shop Now</a>
           {% else %}
             <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="featured-shoe-img">
             <div class="featured-shoe-title center">{{ default_titles[i] }}</div>
