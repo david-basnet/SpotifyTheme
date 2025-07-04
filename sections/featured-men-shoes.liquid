@@ -1,5 +1,6 @@
 {% assign default_titles = "Shoe 1,Shoe 2,Shoe 3,Shoe 4,Shoe 5,Shoe 6" | split: "," %}
 {% assign default_prices = "100,120,110,130,140,150" | split: "," %}
+{% assign default_images = "menshoeGEL1130.jpg,menshoeNB9060.webp,menshoeOZWEEGO.avif,menshoeSAMBA.avif,menshoeVEJA.webp,menshoeZOOMVOMERO.webp" | split: "," %}
 
 <div class="featured-men-shoes">
   <h2>{{ section.settings.heading }}</h2>
@@ -16,16 +17,16 @@
                 class="featured-shoe-img"
                 loading="lazy"
                 width="600"
-                height="{{ 600 | divided_by: block.settings.image.aspect_ratio | round }}"
+                height="180"
               >
             {% else %}
-              <div class="placeholder-image">{{ 'product-' | append: forloop.index | placeholder_svg_tag: 'featured-shoe-img' }}</div>
+              <img src="{{ default_images[i] | asset_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
             {% endif %}
             <div class="featured-shoe-title center">{{ block.settings.title | default: default_titles[i] }}</div>
             <div class="featured-shoe-price center">${{ block.settings.price | default: default_prices[i] }}</div>
             <a href="{{ block.settings.link | default: '#' }}" class="featured-shoe-link">Shop Now</a>
           {% else %}
-            <div class="placeholder-image">{{ 'product-' | append: forloop.index | placeholder_svg_tag: 'featured-shoe-img' }}</div>
+            <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
             <div class="featured-shoe-title center">{{ default_titles[i] }}</div>
             <div class="featured-shoe-price center">${{ default_prices[i] }}</div>
             <a href="#" class="featured-shoe-link">Shop Now</a>
