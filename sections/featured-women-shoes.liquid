@@ -1,17 +1,41 @@
+{% assign default_titles = "Shoe 1,Shoe 2,Shoe 3,Shoe 4,Shoe 5,Shoe 6" | split: "," %}
+{% assign default_prices = "100,120,110,130,140,150" | split: "," %}
+{% assign default_images = "womenshoe1.jpg,womenshoe2.jpg,womenshoe3.jpg,womenshoe4.jpg,womenshoe5.jpg,womenshoe6.jpg" | split: "," %}
+
 <div class="featured-women-shoes">
   <h2>{{ section.settings.heading }}</h2>
   <div class="featured-shoes-grid">
-    {% for block in section.blocks %}
-      <div class="featured-shoe">
-        {% if block.settings.image != blank %}
-          <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="featured-shoe-img">
-        {% endif %}
-        <div class="featured-shoe-title">{{ block.settings.title }}</div>
-        {% if block.settings.link != blank %}
-          <a href="{{ block.settings.link }}" class="featured-shoe-link">Shop Now</a>
-        {% endif %}
-      </div>
-    {% endfor %}
+    {% if section.blocks.size > 0 %}
+      {% for i in (0..5) %}
+        {% assign block = section.blocks[i] %}
+        <div class="featured-shoe">
+          {% if block or request.design_mode %}
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title | default: default_titles[i] | escape }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+            {% else %}
+              <img src="{{ default_images[i] | asset_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+            {% endif %}
+            <div class="featured-shoe-title">{{ block.settings.title | default: default_titles[i] }}</div>
+            <div class="featured-shoe-price">${{ block.settings.price | default: default_prices[i] }}</div>
+            <a href="{{ block.settings.link | default: '#' }}" class="featured-shoe-link">Shop Now</a>
+          {% else %}
+            <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+            <div class="featured-shoe-title">{{ default_titles[i] }}</div>
+            <div class="featured-shoe-price">${{ default_prices[i] }}</div>
+            <a href="#" class="featured-shoe-link">Shop Now</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      {% for i in (0..5) %}
+        <div class="featured-shoe">
+          <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+          <div class="featured-shoe-title">{{ default_titles[i] }}</div>
+          <div class="featured-shoe-price">${{ default_prices[i] }}</div>
+          <a href="#" class="featured-shoe-link">Shop Now</a>
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
 </div>
 
@@ -66,33 +90,16 @@
     }
   ],
   "blocks": [
-    {
-      "type": "shoe",
-      "name": "Featured Shoe",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Shoe Image"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Shoe Title"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
-      ]
-    }
+    { "type": "shoe1", "name": "Featured Shoe 1", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 1" }, { "type": "text", "id": "price", "label": "Price", "default": "100" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe2", "name": "Featured Shoe 2", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 2" }, { "type": "text", "id": "price", "label": "Price", "default": "120" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe3", "name": "Featured Shoe 3", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 3" }, { "type": "text", "id": "price", "label": "Price", "default": "110" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe4", "name": "Featured Shoe 4", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 4" }, { "type": "text", "id": "price", "label": "Price", "default": "130" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe5", "name": "Featured Shoe 5", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 5" }, { "type": "text", "id": "price", "label": "Price", "default": "140" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe6", "name": "Featured Shoe 6", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 6" }, { "type": "text", "id": "price", "label": "Price", "default": "150" }, { "type": "url", "id": "link", "label": "Link" } ] }
   ],
-  "max_blocks": 3,
+  "max_blocks": 6,
   "presets": [
-    {
-      "name": "Featured Women Shoes"
-    }
+    { "name": "Featured Women Shoes", "blocks": [ { "type": "shoe1" }, { "type": "shoe2" }, { "type": "shoe3" }, { "type": "shoe4" }, { "type": "shoe5" }, { "type": "shoe6" } ] }
   ]
 }
 {% endschema %} 
