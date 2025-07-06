@@ -9,12 +9,8 @@
  */
 {
   "sections": {
-    "featured_women_shoes": {
-      "type": "featured-women-shoes",
-      "settings": {}
-    },
-    "women_shoes_gallery": {
-      "type": "women-shoes-gallery",
+    "shoe_description": {
+      "type": "shoe-description",
       "settings": {}
     },
     "footer": {
@@ -23,8 +19,7 @@
     }
   },
   "order": [
-    "featured_women_shoes",
-    "women_shoes_gallery",
+    "shoe_description",
     "footer"
   ]
 } 
