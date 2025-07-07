@@ -4,9 +4,8 @@
     <div class="top-picks-label">Men</div>
     <div class="top-picks-shoes-wrapper">
       <div class="top-picks-shoes top-picks-slider" id="men-slider">
-        {% assign men_section = sections['featured-men-products'] %}
-        {% if men_section and men_section.blocks.size > 0 %}
-          {% for block in men_section.blocks %}
+        {% for block in section.blocks %}
+          {% if block.type == 'men' %}
             {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
               {% if product and product.featured_image %}
@@ -16,20 +15,25 @@
               <div class="top-pick-price">{{ product.price | money }}</div>
               <a href="/products/{{ product.handle }}" class="top-pick-btn">Shop Now</a>
             </div>
-          {% endfor %}
-        {% endif %}
+          {% endif %}
+        {% endfor %}
       </div>
-      <button class="slider-arrow left" onclick="slideTopPicks('men-slider', -1)" {% if men_section.blocks.size <= 4 %}style="display:none"{% endif %}>&#8592;</button>
-      <button class="slider-arrow right" onclick="slideTopPicks('men-slider', 1)" {% if men_section.blocks.size <= 4 %}style="display:none"{% endif %}>&#8594;</button>
+      {%- assign men_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'men' -%}
+          {%- assign men_count = men_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <button class="slider-arrow left" onclick="slideTopPicks('men-slider', -1)" {% if men_count <= 4 %}style="display:none"{% endif %}>&#8592;</button>
+      <button class="slider-arrow right" onclick="slideTopPicks('men-slider', 1)" {% if men_count <= 4 %}style="display:none"{% endif %}>&#8594;</button>
     </div>
   </div>
   <div class="top-picks-row">
     <div class="top-picks-label">Women</div>
     <div class="top-picks-shoes-wrapper">
       <div class="top-picks-shoes top-picks-slider" id="women-slider">
-        {% assign women_section = sections['featured-women-products'] %}
-        {% if women_section and women_section.blocks.size > 0 %}
-          {% for block in women_section.blocks %}
+        {% for block in section.blocks %}
+          {% if block.type == 'women' %}
             {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
               {% if product and product.featured_image %}
@@ -39,20 +43,25 @@
               <div class="top-pick-price">{{ product.price | money }}</div>
               <a href="/products/{{ product.handle }}" class="top-pick-btn">Shop Now</a>
             </div>
-          {% endfor %}
-        {% endif %}
+          {% endif %}
+        {% endfor %}
       </div>
-      <button class="slider-arrow left" onclick="slideTopPicks('women-slider', -1)" {% if women_section.blocks.size <= 4 %}style="display:none"{% endif %}>&#8592;</button>
-      <button class="slider-arrow right" onclick="slideTopPicks('women-slider', 1)" {% if women_section.blocks.size <= 4 %}style="display:none"{% endif %}>&#8594;</button>
+      {%- assign women_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'women' -%}
+          {%- assign women_count = women_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <button class="slider-arrow left" onclick="slideTopPicks('women-slider', -1)" {% if women_count <= 4 %}style="display:none"{% endif %}>&#8592;</button>
+      <button class="slider-arrow right" onclick="slideTopPicks('women-slider', 1)" {% if women_count <= 4 %}style="display:none"{% endif %}>&#8594;</button>
     </div>
   </div>
   <div class="top-picks-row">
     <div class="top-picks-label">Kids</div>
     <div class="top-picks-shoes-wrapper">
       <div class="top-picks-shoes top-picks-slider" id="kids-slider">
-        {% assign kid_section = sections['featured-kid-products'] %}
-        {% if kid_section and kid_section.blocks.size > 0 %}
-          {% for block in kid_section.blocks %}
+        {% for block in section.blocks %}
+          {% if block.type == 'kids' %}
             {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
               {% if product and product.featured_image %}
@@ -62,11 +71,17 @@
               <div class="top-pick-price">{{ product.price | money }}</div>
               <a href="/products/{{ product.handle }}" class="top-pick-btn">Shop Now</a>
             </div>
-          {% endfor %}
-        {% endif %}
+          {% endif %}
+        {% endfor %}
       </div>
-      <button class="slider-arrow left" onclick="slideTopPicks('kids-slider', -1)" {% if kid_section.blocks.size <= 4 %}style="display:none"{% endif %}>&#8592;</button>
-      <button class="slider-arrow right" onclick="slideTopPicks('kids-slider', 1)" {% if kid_section.blocks.size <= 4 %}style="display:none"{% endif %}>&#8594;</button>
+      {%- assign kids_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'kids' -%}
+          {%- assign kids_count = kids_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <button class="slider-arrow left" onclick="slideTopPicks('kids-slider', -1)" {% if kids_count <= 4 %}style="display:none"{% endif %}>&#8592;</button>
+      <button class="slider-arrow right" onclick="slideTopPicks('kids-slider', 1)" {% if kids_count <= 4 %}style="display:none"{% endif %}>&#8594;</button>
     </div>
   </div>
 </div>
@@ -108,6 +123,32 @@ function slideTopPicks(id, dir) {
 {% schema %}
 {
   "name": "Top Picks",
+  "blocks": [
+    {
+      "type": "men",
+      "name": "Men's Product",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Select Product" }
+      ]
+    },
+    {
+      "type": "women",
+      "name": "Women's Product",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Select Product" }
+      ]
+    },
+    {
+      "type": "kids",
+      "name": "Kids' Product",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Select Product" }
+      ]
+    }
+  ],
   "presets": [
     { "name": "Top Picks" }
   ]

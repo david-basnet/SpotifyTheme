@@ -1,0 +1,96 @@
+<section class="product-main">
+  <div class="product-main-wrapper">
+    <div class="product-gallery">
+      {% if product.images.size > 1 %}
+        <div class="product-gallery-thumbs">
+          {% for image in product.images %}
+            <img src="{{ image | image_url: '200x' }}" class="product-thumb" onclick="document.getElementById('main-product-img').src='{{ image | image_url: '600x' }}'" loading="lazy">
+          {% endfor %}
+        </div>
+      {% endif %}
+      <img
+        id="main-product-img"
+        width="600"
+        height="600"
+        loading="lazy"
+        src="{{ product.featured_image | image_url: '600x' }}"
+        class="product-main-img"
+      >
+    </div>
+    <div class="product-main-info">
+      <h2>{{ product.title }}</h2>
+      <p class="product-main-price">{{ product.price | money }}</p>
+      <p class="product-main-desc">{{ product.description }}</p>
+      <div class="product-main-actions">
+        <button class="favorite-btn" id="favorite-btn" onclick="toggleFavorite('{{ product.id }}')">
+          <span id="favorite-icon">&#9825;</span> Favorite
+        </button>
+        {% form 'product', product %}
+          {% if product.variants.size > 1 %}
+            <label for="product-variant">Select Size</label>
+            <select name="id" id="product-variant">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}">{{ variant.title }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          {% endif %}
+          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFavorite(productId) {
+  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+  const idx = favs.indexOf(productId);
+  if (idx === -1) {
+    favs.push(productId);
+    document.getElementById('favorite-icon').innerHTML = '&#9829;';
+  } else {
+    favs.splice(idx, 1);
+    document.getElementById('favorite-icon').innerHTML = '&#9825;';
+  }
+  localStorage.setItem('favorites', JSON.stringify(favs));
+}
+window.onload = function() {
+  const productId = '{{ product.id }}';
+  let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+  if (favs.indexOf(productId) !== -1) {
+    document.getElementById('favorite-icon').innerHTML = '&#9829;';
+  }
+}
+</script>
+
+<style>
+.product-main { background: #fff; color: #111; padding: 32px 0; }
+.product-main-wrapper { display: flex; gap: 48px; max-width: 1100px; margin: 0 auto; border-radius: 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); padding: 32px; }
+.product-gallery { flex: 1 1 400px; display: flex; flex-direction: column; align-items: center; }
+.product-main-img { width: 400px; height: 400px; object-fit: contain; border-radius: 12px; background: #f7f7f7; margin-bottom: 16px; }
+.product-gallery-thumbs { display: flex; gap: 12px; margin-bottom: 16px; }
+.product-thumb { width: 60px; height: 60px; object-fit: contain; border-radius: 6px; background: #f7f7f7; cursor: pointer; border: 2px solid #eee; transition: border 0.2s; }
+.product-thumb:hover { border: 2px solid #0071e3; }
+.product-main-info { flex: 1 1 400px; display: flex; flex-direction: column; justify-content: center; }
+.product-main-price { font-size: 1.5rem; font-weight: bold; margin-bottom: 16px; color: #333; }
+.product-main-desc { font-size: 1.1rem; margin-bottom: 32px; color: #555; }
+.product-main-actions { display: flex; gap: 16px; align-items: center; }
+.add-to-cart-btn { background: #111; color: #fff; border: none; border-radius: 6px; padding: 14px 32px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+.add-to-cart-btn:hover { background: #0071e3; }
+.favorite-btn { background: #fff; color: #e00; border: 1px solid #e00; border-radius: 6px; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s, color 0.2s; }
+.favorite-btn:hover { background: #ffeaea; }
+#favorite-icon { font-size: 1.3rem; }
+@media (max-width: 900px) { .product-main-wrapper { flex-direction: column; gap: 24px; padding: 16px; } .product-main-img { width: 100%; height: 220px; } }
+</style>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "presets": [
+    { "name": "Main Product" }
+  ]
+}
+{% endschema %} 
