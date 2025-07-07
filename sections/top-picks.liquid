@@ -4,30 +4,17 @@
     <div class="top-picks-label">Men</div>
     <div class="top-picks-shoes-wrapper">
       <div class="top-picks-shoes top-picks-slider" id="men-slider">
-        {% assign men_section = sections['featured-men-shoes'] %}
-        {% assign default_titles = "Shoe 1,Shoe 2,Shoe 3,Shoe 4,Shoe 5,Shoe 6" | split: "," %}
-        {% assign default_prices = "100,120,110,130,140,150" | split: "," %}
-        {% assign default_images = "menshoeGEL1130.jpg,menshoeNB9060.webp,menshoeOZWEEGO.avif,menshoeSAMBA.avif,menshoeVEJA.webp,menshoeZOOMVOMERO.webp" | split: "," %}
+        {% assign men_section = sections['featured-men-products'] %}
         {% if men_section and men_section.blocks.size > 0 %}
           {% for block in men_section.blocks %}
+            {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
-              {% if block.settings.image != blank %}
-                <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" class="top-pick-img" loading="lazy" width="600" height="180">
+              {% if product and product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
               {% endif %}
-              <div class="top-pick-title">{{ block.settings.title }}</div>
-              <div class="top-pick-price">${{ block.settings.price }}</div>
-              {% if block.settings.link != blank %}
-                <a href="{{ block.settings.link }}" class="top-pick-btn">Shop Now</a>
-              {% endif %}
-            </div>
-          {% endfor %}
-        {% else %}
-          {% for i in (0..5) %}
-            <div class="top-pick-card big">
-              <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="top-pick-img" loading="lazy" width="600" height="180">
-              <div class="top-pick-title">{{ default_titles[i] }}</div>
-              <div class="top-pick-price">${{ default_prices[i] }}</div>
-              <a href="#" class="top-pick-btn">Shop Now</a>
+              <div class="top-pick-title">{{ product.title }}</div>
+              <div class="top-pick-price">{{ product.price | money }}</div>
+              <a href="/products/{{ product.handle }}" class="top-pick-btn">Shop Now</a>
             </div>
           {% endfor %}
         {% endif %}
@@ -40,30 +27,17 @@
     <div class="top-picks-label">Women</div>
     <div class="top-picks-shoes-wrapper">
       <div class="top-picks-shoes top-picks-slider" id="women-slider">
-        {% assign women_section = sections['featured-women-shoes'] %}
-        {% assign default_titles = "Shoe 1,Shoe 2,Shoe 3,Shoe 4,Shoe 5,Shoe 6" | split: "," %}
-        {% assign default_prices = "100,120,110,130,140,150" | split: "," %}
-        {% assign default_images = "adidas-samba-sneakers-amy4.jpg,jordan.jpg,nb550.jpg,menshoeGEL1130.jpg,menshoeVEJA.webp,menshoeZOOMVOMERO.webp" | split: "," %}
+        {% assign women_section = sections['featured-women-products'] %}
         {% if women_section and women_section.blocks.size > 0 %}
           {% for block in women_section.blocks %}
+            {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
-              {% if block.settings.image != blank %}
-                <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" class="top-pick-img" loading="lazy" width="600" height="180">
+              {% if product and product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
               {% endif %}
-              <div class="top-pick-title">{{ block.settings.title }}</div>
-              <div class="top-pick-price">${{ block.settings.price }}</div>
-              {% if block.settings.link != blank %}
-                <a href="{{ block.settings.link }}" class="top-pick-btn">Shop Now</a>
-              {% endif %}
-            </div>
-          {% endfor %}
-        {% else %}
-          {% for i in (0..5) %}
-            <div class="top-pick-card big">
-              <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="top-pick-img" loading="lazy" width="600" height="180">
-              <div class="top-pick-title">{{ default_titles[i] }}</div>
-              <div class="top-pick-price">${{ default_prices[i] }}</div>
-              <a href="#" class="top-pick-btn">Shop Now</a>
+              <div class="top-pick-title">{{ product.title }}</div>
+              <div class="top-pick-price">{{ product.price | money }}</div>
+              <a href="/products/{{ product.handle }}" class="top-pick-btn">Shop Now</a>
             </div>
           {% endfor %}
         {% endif %}
@@ -76,30 +50,17 @@
     <div class="top-picks-label">Kids</div>
     <div class="top-picks-shoes-wrapper">
       <div class="top-picks-shoes top-picks-slider" id="kids-slider">
-        {% assign kid_section = sections['featured-kid-shoes'] %}
-        {% assign default_titles = "Shoe 1,Shoe 2,Shoe 3,Shoe 4,Shoe 5,Shoe 6" | split: "," %}
-        {% assign default_prices = "100,120,110,130,140,150" | split: "," %}
-        {% assign default_images = "nb550.webp,menshoeNB9060.webp,menshoeSAMBA.avif,menshoeOZWEEGO.avif,adidas-samba-sneakers-amy4.jpg,jordan.jpg" | split: "," %}
+        {% assign kid_section = sections['featured-kid-products'] %}
         {% if kid_section and kid_section.blocks.size > 0 %}
           {% for block in kid_section.blocks %}
+            {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
-              {% if block.settings.image != blank %}
-                <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" class="top-pick-img" loading="lazy" width="600" height="180">
+              {% if product and product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
               {% endif %}
-              <div class="top-pick-title">{{ block.settings.title }}</div>
-              <div class="top-pick-price">${{ block.settings.price }}</div>
-              {% if block.settings.link != blank %}
-                <a href="{{ block.settings.link }}" class="top-pick-btn">Shop Now</a>
-              {% endif %}
-            </div>
-          {% endfor %}
-        {% else %}
-          {% for i in (0..5) %}
-            <div class="top-pick-card big">
-              <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="top-pick-img" loading="lazy" width="600" height="180">
-              <div class="top-pick-title">{{ default_titles[i] }}</div>
-              <div class="top-pick-price">${{ default_prices[i] }}</div>
-              <a href="#" class="top-pick-btn">Shop Now</a>
+              <div class="top-pick-title">{{ product.title }}</div>
+              <div class="top-pick-price">{{ product.price | money }}</div>
+              <a href="/products/{{ product.handle }}" class="top-pick-btn">Shop Now</a>
             </div>
           {% endfor %}
         {% endif %}
