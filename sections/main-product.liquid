@@ -8,16 +8,12 @@
           {% endfor %}
         </div>
       {% endif %}
-      <pre>
-      Featured image: {{ product.featured_image | json }}
-      All images: {{ product.images | json }}
-      </pre>
       <img
         id="main-product-img"
         width="600"
         height="600"
         loading="lazy"
-        src="{% if product.featured_image %}{{ product.featured_image | image_url: '600x' }}{% elsif product.images.size > 0 %}{{ product.images.first | image_url: '600x' }}{% else %}/assets/placeholder.png{% endif %}"
+        src="{% if product.featured_image %}{{ product.featured_image | image_url: '600x' | prepend: 'https:' }}{% elsif product.images.size > 0 %}{{ product.images.first | image_url: '600x' | prepend: 'https:' }}{% else %}/assets/placeholder.png{% endif %}"
         class="product-main-img"
         onerror="console.log('Image src:', this.src); this.src='/assets/placeholder.png';"
       >
