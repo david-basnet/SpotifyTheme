@@ -8,6 +8,10 @@
           {% endfor %}
         </div>
       {% endif %}
+      <pre>
+      Featured image: {{ product.featured_image | json }}
+      All images: {{ product.images | json }}
+      </pre>
       <img
         id="main-product-img"
         width="600"
