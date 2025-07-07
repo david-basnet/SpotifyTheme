@@ -13,8 +13,9 @@
         width="600"
         height="600"
         loading="lazy"
-        src="{{ product.featured_image | image_url: '600x' }}"
+        src="{% if product.featured_image %}{{ product.featured_image | image_url: '600x' }}{% else %}/assets/placeholder.png{% endif %}"
         class="product-main-img"
+        onerror="console.log('Image src:', this.src); this.src='/assets/placeholder.png';"
       >
     </div>
     <div class="product-main-info">
