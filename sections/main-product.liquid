@@ -4,7 +4,7 @@
       {% if product.images.size > 1 %}
         <div class="product-gallery-thumbs">
           {% for image in product.images %}
-            <img src="{{ image | image_url: '200x' }}" class="product-thumb" onclick="document.getElementById('main-product-img').src='{{ image | image_url: '600x' }}'" loading="lazy">
+            <img src="{{ image | img_url: '200x' | prepend: 'https:' }}" class="product-thumb" onclick="document.getElementById('main-product-img').src='{{ image | img_url: '600x' | prepend: 'https:' }}'" loading="lazy">
           {% endfor %}
         </div>
       {% endif %}
