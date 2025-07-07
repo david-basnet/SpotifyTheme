@@ -26,19 +26,7 @@
         <button class="favorite-btn" id="favorite-btn" onclick="toggleFavorite('{{ product.id }}')">
           <span id="favorite-icon">&#9825;</span> Favorite
         </button>
-        {% form 'product', product %}
-          {% if product.variants.size > 1 %}
-            <label for="product-variant">Select Size</label>
-            <select name="id" id="product-variant">
-              {% for variant in product.variants %}
-                <option value="{{ variant.id }}">{{ variant.title }}</option>
-              {% endfor %}
-            </select>
-          {% else %}
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-          {% endif %}
-          <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        {% endform %}
+        <button type="button" class="add-to-cart-btn" onclick="addToCartAjax()">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -48,21 +36,63 @@
 function toggleFavorite(productId) {
   let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
   const idx = favs.indexOf(productId);
+  const btn = document.getElementById('favorite-btn');
+  const icon = document.getElementById('favorite-icon');
   if (idx === -1) {
     favs.push(productId);
-    document.getElementById('favorite-icon').innerHTML = '&#9829;';
+    icon.innerHTML = '&#9829;';
+    btn.classList.add('favorited');
+    btn.innerText = ' Unfavorite';
+    btn.prepend(icon);
   } else {
     favs.splice(idx, 1);
-    document.getElementById('favorite-icon').innerHTML = '&#9825;';
+    icon.innerHTML = '&#9825;';
+    btn.classList.remove('favorited');
+    btn.innerText = ' Favorite';
+    btn.prepend(icon);
   }
   localStorage.setItem('favorites', JSON.stringify(favs));
 }
 window.onload = function() {
   const productId = '{{ product.id }}';
   let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+  const btn = document.getElementById('favorite-btn');
+  const icon = document.getElementById('favorite-icon');
   if (favs.indexOf(productId) !== -1) {
-    document.getElementById('favorite-icon').innerHTML = '&#9829;';
+    icon.innerHTML = '&#9829;';
+    btn.classList.add('favorited');
+    btn.innerText = ' Unfavorite';
+    btn.prepend(icon);
+  } else {
+    icon.innerHTML = '&#9825;';
+    btn.classList.remove('favorited');
+    btn.innerText = ' Favorite';
+    btn.prepend(icon);
   }
+}
+function addToCartAjax() {
+  var btn = document.querySelector('.add-to-cart-btn');
+  var select = document.getElementById('product-variant');
+  var variantId = select ? select.value : '{{ product.variants.first.id }}';
+  btn.disabled = true;
+  btn.innerText = 'Adding...';
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: variantId, quantity: 1 })
+  })
+  .then(res => res.json())
+  .then(data => {
+    btn.innerText = 'Added!';
+    setTimeout(() => {
+      btn.innerText = 'Add to Cart';
+      btn.disabled = false;
+    }, 1500);
+  })
+  .catch(() => {
+    btn.innerText = 'Error';
+    btn.disabled = false;
+  });
 }
 </script>
 
