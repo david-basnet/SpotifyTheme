@@ -9,8 +9,8 @@
  */
 {
     "sections": {
-      "featured_kid_shoes": {
-        "type": "featured-kid-shoes",
+      "featured_kid_products": {
+        "type": "featured-kid-products",
         "settings": {}
       },
       "kids_shoes_gallery": {
@@ -23,7 +23,7 @@
       }
     },
     "order": [
-      "featured_kid_shoes",
+      "featured_kid_products",
       "kids_shoes_gallery",
       "footer"
     ]

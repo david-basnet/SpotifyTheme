@@ -9,28 +9,14 @@
  */
 {
   "sections": {
-    "featured_men_shoes": {
-      "type": "featured-men-shoes",
-      "settings": {
-        "heading": "FEATURED MEN'S SHOES"
-      }
+    "featured_men_products": {
+      "type": "featured-men-products",
+      "settings": {}
     },
     "men_shoes_gallery": {
       "type": "men-shoes-gallery",
-      "blocks": {
-        "product_tJCKQP": {
-          "type": "product",
-          "settings": {
-            "product": "nb-550"
-          }
-        }
-      },
-      "block_order": [
-        "product_tJCKQP"
-      ],
       "settings": {
-        "heading": "MEN'S SHOES GALLERY",
-        "subheading": "Browse our featured men's products."
+        "heading": "MEN'S SHOES GALLERY"
       }
     },
     "footer": {
@@ -39,8 +25,8 @@
     }
   },
   "order": [
-    "featured_men_shoes",
+    "featured_men_products",
     "men_shoes_gallery",
     "footer"
   ]
-}
+} 
