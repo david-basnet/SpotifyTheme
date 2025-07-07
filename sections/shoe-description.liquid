@@ -5,6 +5,7 @@
 window.shoeBlocks = [
   {% for block in section.blocks %}
     {
+      slug: {{ block.settings.slug | json }},
       title: {{ block.settings.title | json }},
       price: {{ block.settings.price | json }},
       desc: {{ block.settings.desc | json }},
@@ -16,60 +17,70 @@ window.shoeBlocks = [
 // Default shoe data (should match your gallery order)
 const defaultShoes = [
   {
+    slug: "gel-1130",
     title: "GEL-1130",
     price: "120",
     desc: "Premium running shoe",
     image: "/assets/menshoeGEL1130.jpg"
   },
   {
+    slug: "nb-9060",
     title: "NB 9060",
     price: "140",
     desc: "Classic lifestyle sneaker",
     image: "/assets/menshoeNB9060.webp"
   },
   {
+    slug: "ozweego",
     title: "OZWEEGO",
     price: "130",
     desc: "Comfortable daily wear",
     image: "/assets/menshoeOZWEEGO.avif"
   },
   {
+    slug: "adidas-samba",
     title: "Adidas Samba",
     price: "150",
     desc: "Iconic street style",
     image: "/assets/menshoeSAMBA.avif"
   },
   {
+    slug: "veja-sneakers",
     title: "VEJA Sneakers",
     price: "160",
     desc: "Ethical fashion choice",
     image: "/assets/menshoeVEJA.webp"
   },
   {
+    slug: "zoom-vomero",
     title: "Zoom Vomero",
     price: "170",
     desc: "Performance running",
     image: "/assets/menshoeZOOMVOMERO.webp"
   },
   {
+    slug: "adidas-samba-pro",
     title: "Adidas Samba Pro",
     price: "145",
     desc: "Professional grade",
     image: "/assets/adidas-samba-sneakers-amy4.jpg"
   },
   {
+    slug: "air-jordan",
     title: "Air Jordan",
     price: "180",
     desc: "Legendary basketball",
     image: "/assets/jordan.jpg"
   },
   {
+    slug: "nb-550",
     title: "NB 550",
     price: "135",
     desc: "Heritage design",
     image: "/assets/nb550.jpg"
   },
   {
+    slug: "nb-550-pro",
     title: "NB 550 Pro",
     price: "155",
     desc: "Advanced comfort",
@@ -83,10 +94,11 @@ function getQueryParam(param) {
 }
 
 function renderShoeDetail() {
-  const shoeId = parseInt(getQueryParam('shoe'));
+  const shoeSlug = getQueryParam('shoe');
   // Prefer Shopify editor blocks if present, else fallback to default
   const shoes = (window.shoeBlocks && window.shoeBlocks.length > 0) ? window.shoeBlocks : defaultShoes;
-  const shoe = shoes[shoeId] || shoes[0];
+  let shoe = shoes.find(s => s.slug === shoeSlug);
+  if (!shoe) shoe = shoes[0];
   const container = document.getElementById('shoe-detail-container');
   if (!container) return;
   container.innerHTML = `
