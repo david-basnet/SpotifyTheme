@@ -17,8 +17,20 @@
     },
     "men_shoes_gallery": {
       "type": "men-shoes-gallery",
+      "blocks": {
+        "product_tJCKQP": {
+          "type": "product",
+          "settings": {
+            "product": "nb-550"
+          }
+        }
+      },
+      "block_order": [
+        "product_tJCKQP"
+      ],
       "settings": {
-        "heading": "MEN'S SHOES GALLERY"
+        "heading": "MEN'S SHOES GALLERY",
+        "subheading": "Browse our featured men's products."
       }
     },
     "footer": {
@@ -31,4 +43,4 @@
     "men_shoes_gallery",
     "footer"
   ]
-} 
+}
