@@ -8,7 +8,9 @@
           {% if block.type == 'men' %}
             {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
-              {% if product and product.featured_image %}
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
+              {% elsif product and product.featured_image %}
                 <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
               {% endif %}
               <div class="top-pick-title">{{ product.title }}</div>
@@ -36,7 +38,9 @@
           {% if block.type == 'women' %}
             {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
-              {% if product and product.featured_image %}
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
+              {% elsif product and product.featured_image %}
                 <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
               {% endif %}
               <div class="top-pick-title">{{ product.title }}</div>
@@ -64,7 +68,9 @@
           {% if block.type == 'kids' %}
             {% assign product = all_products[block.settings.product] %}
             <div class="top-pick-card big">
-              {% if product and product.featured_image %}
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
+              {% elsif product and product.featured_image %}
                 <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="top-pick-img" loading="lazy" width="400" height="180">
               {% endif %}
               <div class="top-pick-title">{{ product.title }}</div>
@@ -129,7 +135,8 @@ function slideTopPicks(id, dir) {
       "name": "Men's Product",
       "limit": 6,
       "settings": [
-        { "type": "product", "id": "product", "label": "Select Product" }
+        { "type": "product", "id": "product", "label": "Select Product" },
+        { "type": "image_picker", "id": "image", "label": "Custom Photo (optional)" }
       ]
     },
     {
@@ -137,7 +144,8 @@ function slideTopPicks(id, dir) {
       "name": "Women's Product",
       "limit": 6,
       "settings": [
-        { "type": "product", "id": "product", "label": "Select Product" }
+        { "type": "product", "id": "product", "label": "Select Product" },
+        { "type": "image_picker", "id": "image", "label": "Custom Photo (optional)" }
       ]
     },
     {
@@ -145,7 +153,8 @@ function slideTopPicks(id, dir) {
       "name": "Kids' Product",
       "limit": 6,
       "settings": [
-        { "type": "product", "id": "product", "label": "Select Product" }
+        { "type": "product", "id": "product", "label": "Select Product" },
+        { "type": "image_picker", "id": "image", "label": "Custom Photo (optional)" }
       ]
     }
   ],

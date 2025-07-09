@@ -19,14 +19,12 @@
       <a href="/pages/men-page">MEN</a>
       <a href="/pages/women-page">WOMEN</a>
       <a href="/pages/kid-page">KIDS</a>
-      <a href="#">SALE</a>
-      <a href="#">NEW & TRENDING</a>
     </nav>
   </div>
   <div class="navbar-right">
     <div class="navbar-actions">
-      <form class="search-form">
-        <input type="text" placeholder="Search">
+      <form class="search-form" action="/search" method="get">
+        <input type="text" name="q" placeholder="Search">
         <button type="submit" aria-label="Search">
           <!-- Search SVG -->
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -56,6 +54,14 @@
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
         </svg>
       </a>
+      <!-- Customer Authentication Links -->
+      {% if customer %}
+        <a href="/account">Account</a>
+        <a href="/account/logout">Logout</a>
+      {% else %}
+        <a href="/account/login">Login</a>
+        <a href="/account/register">Sign Up</a>
+      {% endif %}
     </div>
   </div>
 </div>
