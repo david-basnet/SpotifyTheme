@@ -23,7 +23,7 @@
       <p class="product-main-price">{{ product.price | money }}</p>
       <p class="product-main-desc">{{ product.description }}</p>
       <div class="product-main-actions">
-        <button class="favorite-btn" id="favorite-btn" onclick="toggleFavorite('{{ product.id }}')">
+        <button class="favorite-btn" id="favorite-btn" onclick="toggleFavorite('{{ product.handle }}')">
           <span id="favorite-icon">&#9825;</span> Favorite
         </button>
         <button type="button" class="add-to-cart-btn" onclick="addToCartAjax()">Add to Cart</button>
@@ -33,13 +33,13 @@
 </section>
 
 <script>
-function toggleFavorite(productId) {
+function toggleFavorite(productHandle) {
   let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-  const idx = favs.indexOf(productId);
+  const idx = favs.indexOf(productHandle);
   const btn = document.getElementById('favorite-btn');
   const icon = document.getElementById('favorite-icon');
   if (idx === -1) {
-    favs.push(productId);
+    favs.push(productHandle);
     icon.innerHTML = '&#9829;';
     btn.classList.add('favorited');
     btn.innerText = ' Unfavorite';
@@ -54,11 +54,11 @@ function toggleFavorite(productId) {
   localStorage.setItem('favorites', JSON.stringify(favs));
 }
 window.onload = function() {
-  const productId = '{{ product.id }}';
+  const productHandle = '{{ product.handle }}';
   let favs = JSON.parse(localStorage.getItem('favorites') || '[]');
   const btn = document.getElementById('favorite-btn');
   const icon = document.getElementById('favorite-icon');
-  if (favs.indexOf(productId) !== -1) {
+  if (favs.indexOf(productHandle) !== -1) {
     icon.innerHTML = '&#9829;';
     btn.classList.add('favorited');
     btn.innerText = ' Unfavorite';
