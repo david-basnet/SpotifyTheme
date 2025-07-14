@@ -1,0 +1,43 @@
+<div class="men-shoes-gallery">
+  {% for block in section.blocks %}
+    {% if block.type == 'featured_product' %}
+      <div class="gallery-product-block">
+        {% assign product = all_products[block.settings.product] %}
+        {% if product %}
+          <h3>{{ product.title }}</h3>
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+          </a>
+          <p>{{ product.price | money }}</p>
+        {% else %}
+          <p>No product selected.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Men Shoes Gallery",
+  "blocks": [
+    {
+      "type": "featured_product",
+      "name": "Featured Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Men Shoes Gallery"
+    }
+  ]
+}
+{% endschema %} 
