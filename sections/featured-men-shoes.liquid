@@ -25,26 +25,31 @@
 
 <div class="featured-shoes-gallery">
   <h2 class="featured-shoes-title">Featured Men's Shoes</h2>
-  <div class="featured-shoes-list">
-    {% for block in section.blocks %}
-      {% if block.type == 'featured_product' %}
-        <div class="gallery-product-block">
-          {% assign product = all_products[block.settings.product] %}
-          {% if product %}
-            <a href="{{ product.url }}">
-              <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-            </a>
-            <div class="product-info">
-              <h3>{{ product.title }}</h3>
-              <p>${{ product.price | money_without_trailing_zeros }}</p>
-              <a href="{{ product.url }}" class="shop-now-btn">Shop Now</a>
-            </div>
-          {% else %}
-            <p>No product selected.</p>
-          {% endif %}
-        </div>
-      {% endif %}
-    {% endfor %}
+  <div class="featured-shoes-slider-wrapper">
+    <button class="slider-arrow left" onclick="slideFeaturedShoes('featured-men-slider', -1)">&#8592;</button>
+    <div class="featured-shoes-slider" id="featured-men-slider">
+      {% assign blocks = section.blocks | slice: 0, 6 %}
+      {% for block in blocks %}
+        {% if block.type == 'featured_product' %}
+          <div class="gallery-product-block">
+            {% assign product = all_products[block.settings.product] %}
+            {% if product %}
+              <a href="{{ product.url }}">
+                <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+              </a>
+              <div class="product-info">
+                <h3>{{ product.title }}</h3>
+                <p>${{ product.price | money_without_trailing_zeros }}</p>
+                <a href="{{ product.url }}" class="shop-now-btn">Shop Now</a>
+              </div>
+            {% else %}
+              <p>No product selected.</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <button class="slider-arrow right" onclick="slideFeaturedShoes('featured-men-slider', 1)">&#8594;</button>
   </div>
 </div>
 
@@ -58,11 +63,17 @@
   font-weight: bold;
   margin-bottom: 32px;
 }
-.featured-shoes-list {
+.featured-shoes-slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.featured-shoes-slider {
   display: flex;
   gap: 32px;
-  justify-content: center;
-  flex-wrap: wrap;
+  overflow: hidden;
+  width: 500px;
+  transition: transform 0.3s;
 }
 .gallery-product-block {
   background: #fff;
@@ -70,6 +81,7 @@
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   padding: 16px 16px 24px 16px;
   width: 220px;
+  min-width: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,4 +115,27 @@
 .shop-now-btn:hover {
   background: #0276d9;
 }
+.slider-arrow {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 0 10px;
+}
 </style>
+<script>
+window.slideFeaturedShoes = function(id, dir) {
+  var slider = document.getElementById(id);
+  if (!slider) return;
+  var itemWidth = 252; // width + gap
+  var current = parseInt(slider.dataset.slide) || 0;
+  var max = slider.children.length - 2;
+  var next = current + dir;
+  next = Math.max(0, Math.min(next, max));
+  slider.style.transform = 'translateX(' + (-next * itemWidth) + 'px)';
+  slider.dataset.slide = next;
+}
+</script>
