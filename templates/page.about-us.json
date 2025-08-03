@@ -11,27 +11,6 @@
   "sections": {
     "main": {
       "type": "about-us",
-      "settings": {
-        "show_hero": true,
-        "title": "About Us",
-        "subtitle": "Discover our passion for quality footwear and exceptional customer service",
-        "show_story": true,
-        "story_title": "Our Story",
-        "story_content": "<p>Founded with a passion for quality footwear, our journey began with a simple mission: to provide customers with the best shoes that combine style, comfort, and durability. What started as a small family business has grown into a trusted destination for footwear enthusiasts worldwide.</p><p>Over the years, we've built strong relationships with leading brands and manufacturers, ensuring that every product in our collection meets our high standards. Our commitment to quality and customer satisfaction remains at the heart of everything we do.</p>",
-        "show_mission": true,
-        "mission_title": "Our Mission",
-        "mission_content": "To provide our customers with premium footwear that enhances their lifestyle, backed by exceptional service and a commitment to quality that never compromises.",
-        "show_values": true,
-        "values_title": "Our Values",
-        "show_team": true,
-        "team_title": "Meet Our Team",
-        "show_contact": true,
-        "contact_title": "Get in Touch",
-        "contact_content": "Have questions about our products or services? We'd love to hear from you. Reach out to our team and we'll get back to you as soon as possible.",
-        "contact_button_text": "Contact Us",
-        "contact_button_url": "/pages/contact",
-        "background_color": "#ffffff"
-      },
       "blocks": {
         "value_1": {
           "type": "value",
@@ -88,16 +67,103 @@
       },
       "block_order": [
         "value_1",
-        "value_2", 
+        "value_2",
         "value_3",
         "value_4",
         "team_member_1",
         "team_member_2",
         "team_member_3"
-      ]
+      ],
+      "settings": {
+        "show_hero": true,
+        "title": "About Us",
+        "subtitle": "Discover our passion for quality footwear and exceptional customer service",
+        "show_story": true,
+        "story_title": "Our Story",
+        "story_content": "<p>Founded with a passion for quality footwear, our journey began with a simple mission: to provide customers with the best shoes that combine style, comfort, and durability. What started as a small family business has grown into a trusted destination for footwear enthusiasts worldwide.</p><p>Over the years, we've built strong relationships with leading brands and manufacturers, ensuring that every product in our collection meets our high standards. Our commitment to quality and customer satisfaction remains at the heart of everything we do.</p>",
+        "show_mission": true,
+        "mission_title": "Our Mission",
+        "mission_content": "To provide our customers with premium footwear that enhances their lifestyle, backed by exceptional service and a commitment to quality that never compromises.",
+        "show_values": true,
+        "values_title": "Our Values",
+        "show_team": true,
+        "team_title": "Meet Our Team",
+        "show_contact": true,
+        "contact_title": "Get in Touch",
+        "contact_content": "Have questions about our products or services? We'd love to hear from you. Reach out to our team and we'll get back to you as soon as possible.",
+        "contact_button_text": "Contact Us",
+        "contact_button_url": "/pages/contact",
+        "background_color": "#ffffff"
+      }
+    },
+    "featured_women_shoes_gcD9jb": {
+      "type": "featured-women-shoes",
+      "blocks": {
+        "shoe1_frJHMU": {
+          "type": "shoe1",
+          "settings": {
+            "title": "Shoe 1",
+            "price": "100",
+            "link": ""
+          }
+        },
+        "shoe2_jKDiA8": {
+          "type": "shoe2",
+          "settings": {
+            "title": "Shoe 2",
+            "price": "120",
+            "link": ""
+          }
+        },
+        "shoe3_FUWbwp": {
+          "type": "shoe3",
+          "settings": {
+            "title": "Shoe 3",
+            "price": "110",
+            "link": ""
+          }
+        },
+        "shoe4_RfGqWW": {
+          "type": "shoe4",
+          "settings": {
+            "title": "Shoe 4",
+            "price": "130",
+            "link": ""
+          }
+        },
+        "shoe5_QftyNH": {
+          "type": "shoe5",
+          "settings": {
+            "title": "Shoe 5",
+            "price": "140",
+            "link": ""
+          }
+        },
+        "shoe6_z9Fxw3": {
+          "type": "shoe6",
+          "settings": {
+            "title": "Shoe 6",
+            "price": "150",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "shoe1_frJHMU",
+        "shoe2_jKDiA8",
+        "shoe3_FUWbwp",
+        "shoe4_RfGqWW",
+        "shoe5_QftyNH",
+        "shoe6_z9Fxw3"
+      ],
+      "name": "Featured Women Shoes",
+      "settings": {
+        "heading": "Featured Women's Shoes"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "featured_women_shoes_gcD9jb"
   ]
-} 
+}
