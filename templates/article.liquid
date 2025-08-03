@@ -20,7 +20,7 @@
         {% if article.image %}
           <img src="{{ article.image | img_url: '600x' }}" alt="{{ article.title | escape }}" class="article-image" />
         {% else %}
-          <img src="{{ 'placeholder.png' | asset_url }}" alt="No image" class="article-image" />
+          <img src="{{ 'logo.png' | asset_url }}" alt="No image" class="article-image" />
         {% endif %}
       </div>
     </div>

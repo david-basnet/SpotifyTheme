@@ -57,7 +57,7 @@
   display: flex;
   gap: 16px;
   font-size: 1rem;
-  color: #888;
+  color: #666666;
   margin-bottom: 18px;
   justify-content: center;
 }
@@ -74,7 +74,7 @@
 }
 .article-body {
   font-size: 1.15rem;
-  color: #222;
+  color: #000000;
   line-height: 1.7;
   margin-bottom: 28px;
   width: 100%;
@@ -84,12 +84,12 @@
   align-items: center;
   gap: 8px;
   font-size: 1rem;
-  color: #555;
+  color: #333333;
   flex-wrap: wrap;
 }
 .article-tag {
   background: #f0f0f0;
-  color: #333;
+  color: #000000;
   border-radius: 4px;
   padding: 2px 10px;
   margin-left: 4px;
@@ -102,7 +102,7 @@
 }
 .like-btn {
   background: #f0f0f0;
-  color: #333;
+  color: #000000;
   border: none;
   border-radius: 6px;
   padding: 10px 24px;
@@ -118,19 +118,19 @@
   transition: transform 0.2s ease;
 }
 .like-btn:hover {
-  background: #e0e0e0;
+  background: #d0d0d0;
   transform: translateY(-1px);
 }
 .like-btn:hover i {
   transform: scale(1.1);
 }
 .like-btn.liked {
-  background: #cdaa7d;
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
 }
 .article-comments {
   margin-top: 40px;
-  background: #fafbfc;
+  background: #f8f8f8;
   border-radius: 8px;
   padding: 28px 20px;
   max-width: 700px;
@@ -157,16 +157,16 @@
 }
 .comment-author {
   font-weight: 600;
-  color: #333;
+  color: #000000;
 }
 .comment-date {
   font-size: 0.95rem;
-  color: #888;
+  color: #666666;
   margin-bottom: 6px;
 }
 .comment-content {
   font-size: 1.05rem;
-  color: #222;
+  color: #000000;
 }
 .comment-form {
   display: flex;
@@ -194,8 +194,8 @@
   resize: vertical;
 }
 .comment-submit {
-  background: #cdaa7d;
-  color: #fff;
+  background: #000000;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 10px 0;
@@ -205,15 +205,15 @@
   transition: background 0.2s;
 }
 .comment-submit:hover {
-  background: #b89a6b;
+  background: #333333;
 }
 .comment-error {
-  color: #d32f2f;
+  color: #000000;
   margin-top: 8px;
   text-align: center;
 }
 .comment-success {
-  color: #388e3c;
+  color: #000000;
   margin-top: 8px;
   text-align: center;
 }
@@ -226,11 +226,11 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #333;
+  color: #000000;
 }
 .no-comments {
   text-align: center;
-  color: #888;
+  color: #666666;
   font-style: italic;
   margin: 20px 0;
 } 
