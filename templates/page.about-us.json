@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
     "main": {
       "type": "about-us",
       "blocks": {
@@ -96,74 +100,14 @@
         "background_color": "#ffffff"
       }
     },
-    "featured_women_shoes_gcD9jb": {
-      "type": "featured-women-shoes",
-      "blocks": {
-        "shoe1_frJHMU": {
-          "type": "shoe1",
-          "settings": {
-            "title": "Shoe 1",
-            "price": "100",
-            "link": ""
-          }
-        },
-        "shoe2_jKDiA8": {
-          "type": "shoe2",
-          "settings": {
-            "title": "Shoe 2",
-            "price": "120",
-            "link": ""
-          }
-        },
-        "shoe3_FUWbwp": {
-          "type": "shoe3",
-          "settings": {
-            "title": "Shoe 3",
-            "price": "110",
-            "link": ""
-          }
-        },
-        "shoe4_RfGqWW": {
-          "type": "shoe4",
-          "settings": {
-            "title": "Shoe 4",
-            "price": "130",
-            "link": ""
-          }
-        },
-        "shoe5_QftyNH": {
-          "type": "shoe5",
-          "settings": {
-            "title": "Shoe 5",
-            "price": "140",
-            "link": ""
-          }
-        },
-        "shoe6_z9Fxw3": {
-          "type": "shoe6",
-          "settings": {
-            "title": "Shoe 6",
-            "price": "150",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "shoe1_frJHMU",
-        "shoe2_jKDiA8",
-        "shoe3_FUWbwp",
-        "shoe4_RfGqWW",
-        "shoe5_QftyNH",
-        "shoe6_z9Fxw3"
-      ],
-      "name": "Featured Women Shoes",
-      "settings": {
-        "heading": "Featured Women's Shoes"
-      }
+    "footer": {
+      "type": "footer",
+      "settings": {}
     }
   },
   "order": [
+    "header",
     "main",
-    "featured_women_shoes_gcD9jb"
+    "footer"
   ]
 }
