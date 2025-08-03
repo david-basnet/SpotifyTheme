@@ -8,5 +8,44 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "hero-posters": {
+        "type": "hero-posters",
+        "settings": {
+          "poster1_heading": "",
+          "poster1_subheading": "",
+          "poster2_heading": "",
+          "poster2_subheading": "",
+          "poster3_heading": "",
+          "poster3_subheading": ""
+        }
+      },
+      "ad-banner": {
+        "type": "ad-banner",
+        "settings": {
+          "text": "JOIN OUR GOLDTREE & GET 15% OFF",
+          "button_text": "SIGN UP FOR FREE",
+          "button_link": ""
+        }
+      },
+      "featured-collections": {
+        "type": "featured-collections",
+        "settings": {
+          "heading": "Featured Products",
+          "subheading": "Discover our handpicked favorites.",
+          "collection": "male"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    },
+    "content_for_index": []
+  }
 }
