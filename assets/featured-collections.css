@@ -13,7 +13,7 @@
   font-weight: 800;
   color: #1D1D1F;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #1D1D1F 0%, #DB2955 100%);
+  background: linear-gradient(135deg, #1D1D1F 0%, #007bff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -147,12 +147,12 @@
 }
 
 .featured-product__title:hover {
-  color: #DB2955;
+  color: #007bff;
 }
 
 .featured-product__price {
   font-size: 1rem;
-  color: #DB2955;
+  color: #007bff;
   font-weight: 600;
   margin-bottom: 1rem;
   flex-grow: 1;
@@ -161,7 +161,7 @@
 .featured-collection__cta {
   display: inline-block;
   padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #CDAA7D 0%, #DB2955 100%);
+  background: linear-gradient(135deg, #1D1D1F 0%, #007bff 100%);
   color: white;
   text-decoration: none;
   text-align: center;
@@ -186,7 +186,7 @@
 
 .featured-collection__cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(205, 170, 125, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
 }
 
 .featured-collection__cta:hover::before {
