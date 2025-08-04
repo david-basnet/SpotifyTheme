@@ -51,6 +51,7 @@
         <h3 class="footer-heading">COMPANY INFO</h3>
         <ul class="footer-links">
           <li><a href="/pages/about-us">About Us</a></li>
+          <li><a href="/pages/contact">Contact Us</a></li>
           <li><a href="#">GOLDTREE Club</a></li>
         </ul>
       </div>
@@ -164,6 +165,51 @@
 }
 .privacy-icon {
     display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .footer-legal {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .footer-heading {
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+  }
+  
+  .footer-links a {
+    font-size: 0.85rem;
+  }
+  
+  .footer-social-links {
+    gap: 12px;
+  }
+  
+  .footer-social-links svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 </style>
 
