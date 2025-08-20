@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-anim-enabled="{% if settings.enable_animations %}true{% else %}false{% endif %}" data-anim-intensity="{{ settings.animation_intensity | default: 60 }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{{ page_title }}</title>
   {{ content_for_header }}
   {{ 'global.css' | asset_url | stylesheet_tag }}
+  {{ 'ux.js' | asset_url | script_tag }}
   <style>
     body {
       overflow-x: hidden;
@@ -35,8 +36,10 @@
   {{ 'cart-drawer.js' | asset_url | script_tag }}
 </head>
 <body>
+  <div id="scroll-progress"></div>
   <main id="MainContent" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>
+  <button id="backToTop" aria-label="Back to top" title="Back to top">▲</button>
 </body>
 </html> 
