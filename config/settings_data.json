@@ -8,15 +8,11 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {
-    "name": "Skeleton",
-    "settings": {}
-  },
+  "current": "Goldtree Shoe",
   "presets": {
-    "Skeleton": {
-      "name": "Skeleton",
-      "settings": {},
-      "blocks": {}
+    "Goldtree Shoe": {
+      "name": "Goldtree Shoe",
+      "settings": {}
     }
   }
 }

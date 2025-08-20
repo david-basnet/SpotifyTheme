@@ -47,8 +47,49 @@
     margin: 0 auto;
   }
 }
+@media (max-width: 900px) {
+  .article-title {
+    font-size: 1.5rem;
+  }
+  .article-meta, .article-body, .article-tags, .article-tag {
+    font-size: 0.98rem;
+  }
+}
+@media (max-width: 600px) {
+  .article-main {
+    padding: 8px 2px;
+  }
+  .article-title {
+    font-size: 1.1rem;
+  }
+  .article-meta, .article-body, .article-tags, .article-tag {
+    font-size: 0.92rem;
+  }
+  .article-layout {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .article-image {
+    max-width: 100%;
+    height: auto;
+  }
+  .article-meta {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.9rem;
+  }
+  .article-body {
+    font-size: 1rem;
+    padding: 0 2px;
+  }
+  .article-tags {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.9rem;
+  }
+}
 .article-title {
-  font-size: 2.4rem;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
   font-weight: 700;
   margin-bottom: 16px;
   text-align: center;
