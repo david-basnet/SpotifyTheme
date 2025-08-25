@@ -6,7 +6,10 @@
   <title>{{ page_title }}</title>
   {{ content_for_header }}
   {{ 'global.css' | asset_url | stylesheet_tag }}
+  {{ 'hero-3d-shoe.css' | asset_url | stylesheet_tag }}
+  {{ 'hero-3d-shoe-config.js' | asset_url | script_tag }}
   {{ 'ux.js' | asset_url | script_tag }}
+  {{ 'hero-3d-shoe.js' | asset_url | script_tag }}
   <style>
     body {
       overflow-x: hidden;

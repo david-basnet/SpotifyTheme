@@ -1,141 +1,336 @@
-<div class="featured-shoes-gallery">
-  <h2 class="featured-shoes-title">Featured Women's Shoes</h2>
-  <div class="featured-shoes-slider-wrapper">
-    <button class="slider-arrow left" onclick="slideFeaturedShoes('featured-women-slider', -1)">&#8592;</button>
-    <div class="featured-shoes-slider" id="featured-women-slider">
-      {% assign blocks = section.blocks | slice: 0, 6 %}
-      {% for block in blocks %}
-        {% if block.type == 'featured_product' %}
-          <div class="gallery-product-block">
-            {% assign product = all_products[block.settings.product] %}
-            {% if product %}
-              <a href="{{ product.url }}">
-                <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-              </a>
-              <div class="product-info">
-                <h3>{{ product.title }}</h3>
-                <p>${{ product.price | money_without_trailing_zeros }}</p>
-                <a href="{{ product.url }}" class="shop-now-btn">Shop Now</a>
-              </div>
+{% assign default_titles = "Adidas Samba,Air Jordan,NB 550,GEL-1130,VEJA Sneakers,Zoom Vomero" | split: "," %}
+{% assign default_prices = "120,180,140,160,150,170" | split: "," %}
+{% assign default_images = "adidas-samba-sneakers-amy4.jpg,jordan.jpg,nb550.jpg,menshoeGEL1130.jpg,menshoeVEJA.webp,menshoeZOOMVOMERO.webp" | split: "," %}
+
+<div class="featured-women-shoes">
+  <h2>{{ section.settings.heading }}</h2>
+  <div class="featured-women-shoes-wrapper">
+    <div class="featured-shoes-grid featured-women-slider" id="featured-women-slider">
+      {% if section.blocks.size > 0 %}
+        {% for i in (0..5) %}
+          {% assign block = section.blocks[i] %}
+          <div class="featured-shoe big">
+            {% if block or request.design_mode %}
+              {% if block.settings.image %}
+                <img 
+                  src="{{ block.settings.image | image_url: width: 600 }}" 
+                  alt="{{ block.settings.title | default: default_titles[i] | escape }}" 
+                  class="featured-shoe-img"
+                  loading="lazy"
+                  width="600"
+                  height="180"
+                >
+              {% else %}
+                <img src="{{ default_images[i] | asset_url }}" alt="{{ block.settings.title | default: default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+              {% endif %}
+              <div class="featured-shoe-title center">{{ block.settings.title | default: default_titles[i] }}</div>
+              <div class="featured-shoe-price center">${{ block.settings.price | default: default_prices[i] }}</div>
+              <a href="{{ block.settings.link | default: '#' }}" class="featured-shoe-link">Shop Now</a>
             {% else %}
-              <p>No product selected.</p>
+              <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+              <div class="featured-shoe-title center">{{ default_titles[i] }}</div>
+              <div class="featured-shoe-price center">${{ default_prices[i] }}</div>
+              <a href="#" class="featured-shoe-link">Shop Now</a>
             {% endif %}
           </div>
-        {% endif %}
-      {% endfor %}
+        {% endfor %}
+      {% else %}
+        {% for i in (0..5) %}
+          <div class="featured-shoe big">
+            <img src="{{ default_images[i] | asset_url }}" alt="{{ default_titles[i] }}" class="featured-shoe-img" loading="lazy" width="600" height="180">
+            <div class="featured-shoe-title center">{{ default_titles[i] }}</div>
+            <div class="featured-shoe-price center">${{ default_prices[i] }}</div>
+            <a href="#" class="featured-shoe-link">Shop Now</a>
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
-    <button class="slider-arrow right" onclick="slideFeaturedShoes('featured-women-slider', 1)">&#8594;</button>
+    <button class="slider-arrow left" onclick="slideTopPicks('featured-women-slider', -1)">&#8592;</button>
+    <button class="slider-arrow right" onclick="slideTopPicks('featured-women-slider', 1)">&#8594;</button>
   </div>
 </div>
 
 <style>
-.featured-shoes-gallery {
-  text-align: center;
-  margin: 40px 0;
+.featured-women-shoes { 
+  padding: 32px 0; 
+  background: #fff; 
 }
-.featured-shoes-title {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin-bottom: 32px;
+.featured-women-shoes-wrapper { 
+  position: relative; 
+  max-width: 1120px; 
+  margin: 0 auto; 
+  overflow: hidden; 
 }
-.featured-shoes-slider-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.featured-shoes-grid { 
+  display: flex; 
+  gap: 40px; 
+  transition: transform 0.3s; 
+  padding: 0 20px;
 }
-.featured-shoes-slider {
-  display: flex;
-  gap: 32px;
+.featured-shoe.big { 
+  width: 250px; 
+  min-width: 250px; 
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 12px; 
+  overflow: hidden; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.featured-shoe.big::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.8s ease;
+  z-index: 1;
+}
+
+.featured-shoe.big:hover::before {
+  left: 100%;
+}
+
+.featured-shoe.big:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 123, 255, 0.2);
+}
+
+.featured-shoe-img { 
+  width: 100%; 
+  height: 180px; 
+  object-fit: contain; 
+  background: #fff; 
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  z-index: 2;
+}
+
+.featured-shoe.big:hover .featured-shoe-img {
+  transform: scale(1.1) rotate(2deg);
+  filter: brightness(1.05) contrast(1.1);
+}
+
+.featured-shoe-title.center, 
+.featured-shoe-price.center { 
+  text-align: center; 
+  width: 100%; 
+  margin: 0 auto; 
+  padding: 0 10px;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.featured-shoe.big:hover .featured-shoe-title.center {
+  transform: translateY(-5px);
+  color: #007bff;
+}
+
+.featured-shoe.big:hover .featured-shoe-price.center {
+  transform: scale(1.05);
+}
+
+.featured-shoe-title { 
+  font-size: 1.1rem; 
+  margin: 12px 0 4px 0; 
+  font-weight: bold; 
+  transition: all 0.3s ease;
+}
+.featured-shoe-price { 
+  font-size: 1.1rem; 
+  font-weight: bold; 
+  margin-bottom: 8px; 
+  transition: all 0.3s ease;
+}
+.featured-shoe-link { 
+  color: #fff; 
+  background: #111; 
+  border: none; 
+  border-radius: 4px; 
+  padding: 8px 16px; 
+  text-decoration: none; 
+  font-size: 1rem; 
+  margin-bottom: 12px; 
+  display: inline-block; 
+  text-align: center; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 2;
   overflow: hidden;
-  width: 500px;
-  transition: transform 0.3s;
 }
-.gallery-product-block {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-  padding: 16px 16px 24px 16px;
-  width: 220px;
-  min-width: 220px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+.featured-shoe-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
 }
-.gallery-product-block img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
+
+.featured-shoe-link:hover::before {
+  left: 100%;
 }
-.product-info h3 {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0 0 4px 0;
+
+.featured-shoe-link:hover { 
+  background: #0071e3; 
+  color: #fff; 
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
 }
-.product-info p {
-  font-size: 1rem;
-  margin: 0 0 10px 0;
+
+.slider-arrow { 
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  background: #fff; 
+  border: 1px solid #ccc; 
+  border-radius: 50%; 
+  width: 36px; 
+  height: 36px; 
+  font-size: 1.5rem; 
+  cursor: pointer; 
+  z-index: 2; 
+  transition: all 0.3s ease;
 }
-.shop-now-btn {
-  background: #111;
-  color: #fff;
-  padding: 8px 24px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s;
-  display: inline-block;
+
+.slider-arrow:hover {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+  transform: translateY(-50%) scale(1.1);
 }
-.shop-now-btn:hover {
-  background: #0276d9;
+
+.slider-arrow.left { left: 10px; }
+.slider-arrow.right { right: 10px; }
+.featured-women-shoes > h2 { 
+  text-align: center; 
+  margin-bottom: 32px; 
+  font-size: 2rem; 
+  font-weight: bold; 
 }
-.slider-arrow {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin: 0 10px;
+
+@media (max-width: 1200px) {
+  .featured-women-shoes-wrapper {
+    max-width: 900px;
+  }
+}
+@media (max-width: 768px) {
+  .featured-women-shoes-wrapper {
+    max-width: 100%;
+    padding: 0 40px;
+  }
+  .featured-shoes-grid {
+    gap: 20px;
+    padding: 0;
+  }
+  .featured-shoe.big {
+    width: 200px;
+    min-width: 200px;
+  }
 }
 </style>
+
 <script>
-window.slideFeaturedShoes = function(id, dir) {
+function slideTopPicks(id, dir) {
   var slider = document.getElementById(id);
   if (!slider) return;
-  var itemWidth = 252; // width + gap
-  var current = parseInt(slider.dataset.slide) || 0;
-  var max = slider.children.length - 2;
+  var cardWidth = 290; // 250px + 40px gap
+  var visible = 4;
+  var total = slider.children.length;
+  var maxSlide = Math.max(0, total - visible);
+  var current = parseInt(slider.getAttribute('data-slide')) || 0;
   var next = current + dir;
-  next = Math.max(0, Math.min(next, max));
-  slider.style.transform = 'translateX(' + (-next * itemWidth) + 'px)';
-  slider.dataset.slide = next;
+  next = Math.max(0, Math.min(next, maxSlide));
+  slider.style.transform = 'translateX(' + (-next * cardWidth) + 'px)';
+  slider.setAttribute('data-slide', next);
 }
+
+// Enhanced hover effects for shoe cards
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.featured-shoe.big').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      // Add a subtle bounce effect
+      this.style.transform = 'translateY(-12px) scale(1.03)';
+      
+      // Add a subtle glow effect
+      this.style.boxShadow = '0 25px 80px rgba(0, 123, 255, 0.15)';
+      
+      // Animate the image with a slight delay
+      const img = this.querySelector('.featured-shoe-img');
+      if (img) {
+        setTimeout(() => {
+          img.style.transform = 'scale(1.1) rotate(2deg)';
+          img.style.filter = 'brightness(1.05) contrast(1.1)';
+        }, 100);
+      }
+      
+      // Animate the title
+      const title = this.querySelector('.featured-shoe-title');
+      if (title) {
+        setTimeout(() => {
+          title.style.transform = 'translateY(-5px)';
+          title.style.color = '#007bff';
+        }, 150);
+      }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      // Smooth return to original state
+      this.style.transform = 'translateY(0) scale(1)';
+      this.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.08)';
+      
+      // Reset image
+      const img = this.querySelector('.featured-shoe-img');
+      if (img) {
+        img.style.transform = 'scale(1) rotate(0deg)';
+        img.style.filter = 'brightness(1) contrast(1)';
+      }
+      
+      // Reset title
+      const title = this.querySelector('.featured-shoe-title');
+      if (title) {
+        title.style.transform = 'translateY(0)';
+        title.style.color = '';
+      }
+    });
+  });
+});
 </script>
 
 {% schema %}
 {
-  "name": "Featured Women's Shoes",
-  "blocks": [
+  "name": "Featured Women Shoes",
+  "settings": [
     {
-      "type": "featured_product",
-      "name": "Featured Product",
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        }
-      ]
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Featured Women's Shoes"
     }
   ],
-  "max_blocks": 20,
+  "blocks": [
+    { "type": "shoe1", "name": "Featured Shoe 1", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 1" }, { "type": "text", "id": "price", "label": "Price", "default": "100" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe2", "name": "Featured Shoe 2", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 2" }, { "type": "text", "id": "price", "label": "Price", "default": "120" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe3", "name": "Featured Shoe 3", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 3" }, { "type": "text", "id": "price", "label": "Price", "default": "110" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe4", "name": "Featured Shoe 4", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 4" }, { "type": "text", "id": "price", "label": "Price", "default": "130" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe5", "name": "Featured Shoe 5", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 5" }, { "type": "text", "id": "price", "label": "Price", "default": "140" }, { "type": "url", "id": "link", "label": "Link" } ] },
+    { "type": "shoe6", "name": "Featured Shoe 6", "limit": 1, "settings": [ { "type": "image_picker", "id": "image", "label": "Shoe Image" }, { "type": "text", "id": "title", "label": "Shoe Title", "default": "Shoe 6" }, { "type": "text", "id": "price", "label": "Price", "default": "150" }, { "type": "url", "id": "link", "label": "Link" } ] }
+  ],
+  "max_blocks": 6,
   "presets": [
-    {
-      "name": "Featured Women's Shoes"
-    }
+    { "name": "Featured Women Shoes", "blocks": [ { "type": "shoe1" }, { "type": "shoe2" }, { "type": "shoe3" }, { "type": "shoe4" }, { "type": "shoe5" }, { "type": "shoe6" } ] }
   ]
 }
 {% endschema %} 
